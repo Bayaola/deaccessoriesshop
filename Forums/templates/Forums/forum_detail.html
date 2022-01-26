@@ -1,0 +1,60 @@
+{% extends 'layout/base.html' %} {% load crispy_forms_tags %} {% load static %} {% block content %} {% include "layout/_nav.html" %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card row-hover pos-relative py-3 px-3 mb-3 border-warning border-top-0 border-right-0 border-bottom-0 rounded-0">
+                <div class="row align-items-center">
+                    <div class="col-md-8 mb-3 mb-sm-0">
+                        <h5 class="text-primary text-capitalize"> {{object.title}} </h5>
+                    </div>
+                    <div class="col-md-4 op-7">
+                        <div class="row text-center op-7">
+                            <div class="col px-1"> <i class="text-muted ion-connection-bars icon-1x"></i> <span class="d-block text-sm text-muted">141 Votes</span> </div>
+                            <div class="col px-1"> <i class="text-muted ion-ios-chatboxes-outline icon-1x"></i> <span class="d-block text-sm text-muted">122 Replys</span> </div>
+                            <div class="col px-1"> <i class="text-muted ion-ios-eye-outline icon-1x"></i> <span class="d-block text-sm text-muted">290 Views</span> </div>
+                        </div>
+                    </div>
+                    <div class="row align-items-center">
+                        <p class="m-3"> {{object.desc}} </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row p-lg-3 p-md-3">
+        {% for comment in object.comment_set.all %} {% if request.user == comment.user %}
+        <div class="row bg-light">
+            <div class="col-8 bg-light">
+                <p>{{comment.desc}}</p>
+            </div>
+            <div class="col-2">
+                <a href="">Edit</a>
+            </div>
+            <div class="col-2">
+                <form method="post" action="">
+                    {% csrf_token %}
+                    <button class="btn btn-danger" type="submit">Delete</button>
+                </form>
+            </div>
+        </div>
+        {% else %}
+        <div class="row bg-light">
+            <div class="col">
+                <p>{{comment.desc}}</p>
+            </div>
+        </div>
+        {% endif %} {% endfor %}
+        <div class="row container">
+            <form method="post" action="{% url 'add-comment' object.id %}">
+                {% csrf_token %} {{ form_comment }}
+                <input type="submit" name="Add Comment">
+            </form>
+        </div>
+    </div>
+
+</div>
+
+{% endblock content %}

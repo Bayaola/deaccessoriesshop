@@ -1,0 +1,17 @@
+{% extends "layout/base.html" %} {% load static %} {% block content %}
+
+<div class="container-fluid">
+    <div class="fixed-top bg-light">
+        {% include "layout/_nav.html" %}
+    </div>
+    <div class="container row" style="margin-left: auto;margin-right: auto; margin-top: 65px;">
+        <div class="col-4 m-0">
+            {% include "../securite/_nav.html" %}
+        </div>
+        <div class="col-6 p-0 m-0 text-justify">
+            {% include "../securite/text.html" %}
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

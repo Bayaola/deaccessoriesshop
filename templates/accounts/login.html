@@ -1,0 +1,43 @@
+{% extends 'layout/base.html' %} {% load static %} {% block content %}
+<div class="container-fluid" style="height:100vh;">
+    {% include "layout/_nav.html" %}
+    <nav aria-label="breadcrumb " class="container-fluid" style="background-color: white;">
+        <ol class="breadcrumb " style="background-color: white;">
+            <li class="breadcrumb-item">
+                <span class="fa fa-home pt-1 mr-1"></span>
+                <a href="/">Home</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page"><span class="fa fa-sign-in pt-1 mr-1"></span>Login</li>
+        </ol>
+    </nav>
+    <div class="container">
+        <div class="row p-2">
+            <div class="col-lg-8">
+                <form action="" method="post">
+                    {% csrf_token %}
+
+                    <div class="col-lg-10">
+                        <div class="row form-group">
+                            <label class="col-lg-4" for="exampleInputEmail1">Username</label>
+                            <input type="text" name="username" class="form-control col-lg-8" aria-describedby="emailHelp" placeholder="Username">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-10">
+                        <div class="form-group row">
+                            <label class="col-lg-4" for="exampleInputEmail1">Password</label>
+                            <input type="password" name="password" class="form-control col" aria-describedby="emailHelp" placeholder="Password">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <button type="submit" class="btn btn-primary m-2">Login</button>
+                        <button type="submit" class="btn btn-danger m-2">Reset</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

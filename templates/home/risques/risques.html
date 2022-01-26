@@ -1,0 +1,19 @@
+{% extends "layout/base.html" %} {% load static %} {% block content %}
+
+<div class="container-fluid">
+    <div class="fixed-top bg-light">
+        {% include "layout/_nav.html" %}
+    </div>
+    <div class="container row" style="margin-left: auto;margin-right: auto; margin-top: 65px;">
+        <div class="col-4 m-0">
+            {% include "../risques/_nav.html" %}
+        </div>
+        <div class="col-6 p-0 m-0 text-justify">
+            {% include "../risques/text.html" %}
+        </div>
+    </div>
+</div>
+
+{% endblock content %} {% block javascript %}
+<script src="{% static 'js/script.js' %}" async defer></script>
+{% endblock %}
