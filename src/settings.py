@@ -143,5 +143,5 @@ MEDIA_ROOT = '/media/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 AUTH_USER_MODEL = 'Accounts.Account'
 
-LOGIN_REDIRECT_URL = 'register'
-LOGOUT_REDIRECT_URL = 'register'
+LOGIN_REDIRECT_URL = 'store-list'
+LOGOUT_REDIRECT_URL = 'store-list'
