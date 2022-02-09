@@ -28,6 +28,9 @@ class Forum(models.Model):
     def get_absolute_url(self):
         return reverse('forum-detail', kwargs={'slug': self.slug})
 
+    # def get_nomber_comment(self):
+    #     nbr_comment = Comment.objects.get
+
 	
 class Comment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -38,5 +41,7 @@ class Comment(models.Model):
     def __str__(self):
         return str(self.user)
 
+    def get_absolute_url(self):
+        return reverse('forum-detail', kwargs={'slug': self.slug})
 
 	

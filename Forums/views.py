@@ -15,11 +15,16 @@ from .models import Forum, Comment
 
 # Create your views here.
 
-@method_decorator(login_required, name='dispatch')
+# @method_decorator(login_required, name='dispatch')
 class ForumListView(ListView):
     model = Forum
     queryset = Forum.objects.order_by('-created_at')
     paginate_by = 2
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['comments'] = Comment.objects.all()
+        return context
 
 class ForumDetailView(DetailView):
     model = Forum
@@ -29,6 +34,7 @@ class ForumDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['form_comment'] = CommentForm()
         return context
+
 
 class OwnerProtectMixin(object):
     def dispatch(self, request, *args, **kwargs):

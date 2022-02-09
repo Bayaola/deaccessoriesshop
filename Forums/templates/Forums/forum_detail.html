@@ -15,9 +15,11 @@
                             <div class="col px-1"> <i class="text-muted ion-ios-eye-outline icon-1x"></i> <span class="d-block text-sm text-muted">290 Views</span> </div>
                         </div>
                     </div>
+                    
                     <div class="row align-items-center">
                         <p class="m-3"> {{object.desc}} </p>
                     </div>
+
                 </div>
 
             </div>
@@ -46,13 +48,13 @@
                 <p>{{comment.desc}}</p>
             </div>
         </div>
-        {% endif %} {% endfor %}
+        {% endif %} {% endfor %} {% if request.user.is_authenficated %}
         <div class="row container">
             <form method="post" action="{% url 'add-comment' object.id %}">
                 {% csrf_token %} {{ form_comment }}
                 <input type="submit" name="Add Comment">
             </form>
-        </div>
+        </div>{% endif %}
     </div>
 
 </div>

@@ -34,13 +34,15 @@
     <div class="justify-content-end">
         <ul class="navbar-nav">
             {% if request.user.is_authenticated %}
-            <p class="pt-2">Welcome {{ request.user.name }} </p>
-            {% if request.user.is_premium == False %}
+            <p class="pt-2">Welcome {{ request.user.name }} </p>{% if subscription_info.active == False %} {% if request.user.membership.membership_type == 'Free' %}
             <li class="nav-item m-1 p-0">
-                <a class=" btn btn-success m-0 p-1" href="#"> Premium</a>
+                <a class=" btn btn-success m-0 p-1" href=" {% url 'select' %} "> Premium</a>
             </li>
-            {% endif %}
-
+            {% else %}
+            <li class="nav-item m-1 p-0">
+                <a class=" btn btn-secondary m-0 p-1 disabled"> Being validated</a>
+            </li>
+            {% endif %} {% endif %}
             <li class="nav-item">
                 <a href="{% url 'logout' %}" class="nav-link"><span class="fa fa-sign-out"></span> Logout</a>
             </li>

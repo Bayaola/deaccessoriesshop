@@ -76,6 +76,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                # creer une variable globale accessible sur tous les templates
+                'Accounts.views.global_params',
             ],
         },
     },
@@ -143,5 +146,6 @@ MEDIA_ROOT = '/media/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 AUTH_USER_MODEL = 'Accounts.Account'
 
+LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'store-list'
 LOGOUT_REDIRECT_URL = 'store-list'

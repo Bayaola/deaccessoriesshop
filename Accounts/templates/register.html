@@ -1,5 +1,4 @@
-{% extends 'layout/base.html' %} {% load crispy_forms_tags %} {% load static %} {% block content %}
-
+{% extends 'layout/base.html' %} {% load crispy_forms_tags %} {% load static %} {% block content %} {% include "layout/_nav.html" %}
 
 <div class="container-fluid vh-100">
     <div class="rounded d-flex justify-content-center">
@@ -23,6 +22,4 @@
         </div>
     </div>
 </div>
-
-
 {% endblock content %}

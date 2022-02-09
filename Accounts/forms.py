@@ -10,10 +10,16 @@ User = get_user_model()
 class RegistrationForm(forms.ModelForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
+    # membership = forms.CharField(widget=forms.HiddenInput())
+    free_membership = Membership.objects.get(membership_type='Free')        
 
     class Meta:
-        model = Account
-        fields = ('email', 'name', 'phone', 'date_of_birth', 'picture', 'is_premium')
+        model = Account       
+        fields = ('email', 'name', 'phone', 'date_of_birth', 'membership', 'picture')
+
+    def __init__(self, *args, **kwargs):
+        super(RegistrationForm, self).__init__(*args, **kwargs)
+        self.fields['membership'].initial = self.free_membership
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -26,9 +32,16 @@ class RegistrationForm(forms.ModelForm):
     def save(self, commit=True):
         # Save the provided password in hashed format
         user = super().save(commit=False)
+
         user.set_password(self.cleaned_data["password1"])
         if commit:
             user.save()
+
+        # Creating a new UserSubscription
+        user_subscription = Subscription()
+        user_subscription.user_membership = user
+        user_subscription.save()
+
         return user
 
 
@@ -38,7 +51,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = Account
-        fields = ('email', 'name', 'phone', 'date_of_birth', 'picture', 'is_premium', 'is_staff', 'is_superuser')
+        fields = ('email', 'name', 'phone', 'date_of_birth', 'picture', 'is_staff', 'is_superuser')
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -62,7 +75,7 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = Account
-        fields = ('email', 'name', 'phone', 'date_of_birth', 'picture', 'is_premium', 'password', 'is_active', 'is_superuser')
+        fields = ('email', 'name', 'phone', 'date_of_birth', 'picture', 'password', 'is_active', 'is_superuser')
 
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.

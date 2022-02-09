@@ -2,7 +2,9 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.contrib.auth import get_user_model
 from django.utils import timezone
-
+from django.utils.text import slugify
+import time
+from .utils import MEMBERSHIP_CHOICES
 # Create your models here.
 
 
@@ -29,7 +31,7 @@ class AccountManager(BaseUserManager):
 
 
     def create_user(self, email, name, phone, password=None, **extra_fields):
-        extra_fields.setdefault('is_premium', False)
+        # extra_fields.setdefault('is_premium', False)
         extra_fields.setdefault('is_staff', False)
         extra_fields.setdefault('is_superuser', False)
 
@@ -37,12 +39,12 @@ class AccountManager(BaseUserManager):
 
 
     def create_superuser(self, email, name, phone, password=None, **extra_fields):
-        extra_fields.setdefault('is_premium', True)
+        # extra_fields.setdefault('is_premium', True)
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
 
-        if extra_fields.get('is_premium') is not True:
-            raise ValueError('Superuser must have is_premium=True.')
+        # if extra_fields.get('is_premium') is not True:
+        #     raise ValueError('Superuser must have is_premium=True.')
         if extra_fields.get('is_staff') is not True:
             raise ValueError('Superuser must have is_staff=True.')
         if extra_fields.get('is_superuser') is not True:
@@ -51,16 +53,33 @@ class AccountManager(BaseUserManager):
         return self._create_user(email, name, phone, password, **extra_fields)
 
 
+class Membership(models.Model):
+    membership_type = models.CharField(
+        choices=MEMBERSHIP_CHOICES, default='Free', max_length=30
+    )
+    slug = models.SlugField(null=True, blank=True)
+    periode = models.IntegerField()
+    price = models.DecimalField(default=0, max_digits=5, decimal_places=2)
+
+    def save(self, *args, **kwargs):
+        if self.pk is None:
+            self.slug = slugify(self.membership_type) + '-' + time.strftime("%Y%m%d%H%M%S")
+        super(Membership, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.membership_type
+
+
 class Account(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     name = models.CharField(max_length=150)
     phone = models.CharField(max_length=50)
     date_of_birth = models.DateField(blank=True, null=True)
     picture = models.ImageField(blank=True, null=True)
-    is_premium = models.BooleanField(default=False)
+    membership = models.ForeignKey('Membership', related_name='user_membership', on_delete=models.SET_NULL, null=True)
+    # is_premium = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
-    date_joined = models.DateTimeField(default=timezone.now)
     last_login = models.DateTimeField(null=True)
 
     objects = AccountManager()
@@ -76,4 +95,13 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
     def get_short_name(self):
         return self.name.split()[0]
-  
+
+
+class Subscription(models.Model):
+    user_membership = models.ForeignKey(Account, related_name='subscription', on_delete=models.CASCADE)
+    active = models.BooleanField(default=False)
+    start_date = models.DateTimeField(auto_now=True, blank=True, null=True)
+    end_date = models.DateTimeField(auto_now=False, auto_now_add=False, blank=True, null=True)
+
+    def __str__(self):
+      return self.user_membership.name

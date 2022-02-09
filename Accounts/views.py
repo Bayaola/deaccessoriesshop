@@ -10,11 +10,29 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
-from .models import Account
+from .models import Account, Membership, Subscription
 from .forms import RegistrationForm
 
 
+def global_params(request):
+    if request.user.is_anonymous:
+        subscription_info = None
+    else:
+        try:
+            subscription_info = Subscription.objects.get(user_membership=request.user)
+        except Subscription.DoesNotExist:
+             subscription_info = None
+
+    # subscription_info = Subscription.objects.get(user_membership=request.user)
+    context = {
+        "subscription_info": subscription_info,
+    }
+    return context
+   
+    
 class RegistrationView(CreateView):
     template_name = 'register.html'
     form_class = RegistrationForm
@@ -43,6 +61,35 @@ class ProfileView(UpdateView):
 
     def get_object(self):
         return self.request.user
+        
 
-def login_user(request):
-    return render(request, 'login.html')
+class MembershipView(ListView):
+    model = Membership
+    template_name = 'memberships_list.html'
+
+    def get_user_membership(self, *args):
+        user_membership_qs = Account.objects.filter(name=self.request.user)
+        if user_membership_qs.exists():
+            return user_membership_qs.first()
+        return None
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_membership = self.get_user_membership(self.request)
+        context['current_membership'] = str(current_membership.membership)
+        return context
+
+
+def UpdateAccountMembershipView(request, pk):
+    if request.method == 'POST':
+        membership_type = request.POST.get("membership_type")
+        account = Account.objects.get(id=int(request.user.id))
+        membership = Membership.objects.get(id=int(pk))
+        account.membership = membership
+        account.save()
+        # next_url = self.request.POST.get('next')
+
+        return redirect('store-list')
+
+        # print(membership.price, pk, request.user.id)
+
