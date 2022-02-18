@@ -22,7 +22,7 @@
                 </ul>
                 <div class="card-body">
                     {% if object.membership_type != 'Free' %}
-                        <form method="POST" action="{% url 'select-update' object.id %}">
+                        <form method="POST" action="{% url 'Accounts:select-update' object.id %}">
                             {% csrf_token %} 
                             {% if object.membership_type != current_membership %}
                                 <button class="btn btn-warning">Change</button> 

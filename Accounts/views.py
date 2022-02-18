@@ -1,11 +1,9 @@
-from django.shortcuts import render
-
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login as auth_login, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
-from django.shortcuts import render
 
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView
@@ -15,6 +13,7 @@ from django.utils.decorators import method_decorator
 
 from .models import Account, Membership, Subscription
 from .forms import RegistrationForm
+from Stores.models import *
 
 
 def global_params(request):
@@ -31,7 +30,25 @@ def global_params(request):
         "subscription_info": subscription_info,
     }
     return context
-   
+
+
+@login_required
+def wishlist(request):
+    products = Product.objects.filter(users_wishlist=request.user)
+    return render(request, "dashboard/user_wish_list.html", {"wishlist": products})
+
+
+@login_required
+def add_to_wishlist(request, id):
+    product = get_object_or_404(Product, id=id)
+    if product.users_wishlist.filter(id=request.user.id).exists():
+        product.users_wishlist.remove(request.user)
+        messages.success(request, product.title + " has been removed from your WishList")
+    else:
+        product.users_wishlist.add(request.user)
+        messages.success(request, "Added " + product.title + " to your WishList")
+    return HttpResponseRedirect(request.META["HTTP_REFERER"])
+
     
 class RegistrationView(CreateView):
     template_name = 'register.html'
@@ -44,7 +61,7 @@ class RegistrationView(CreateView):
 
     def get_success_url(self):
         next_url = self.request.POST.get('next')
-        success_url = reverse('login')
+        success_url = reverse('Accounts:login')
         if next_url:
             success_url += '?next={}'.format(next_url)
 
@@ -89,7 +106,7 @@ def UpdateAccountMembershipView(request, pk):
         account.save()
         # next_url = self.request.POST.get('next')
 
-        return redirect('store-list')
+        return redirect('Stores:store_home')
 
         # print(membership.price, pk, request.user.id)
 

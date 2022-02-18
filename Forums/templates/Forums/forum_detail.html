@@ -48,13 +48,13 @@
                 <p>{{comment.desc}}</p>
             </div>
         </div>
-        {% endif %} {% endfor %} {% if request.user.is_authenficated %}
+        {% endif %} {% endfor %} 
         <div class="row container">
             <form method="post" action="{% url 'add-comment' object.id %}">
                 {% csrf_token %} {{ form_comment }}
                 <input type="submit" name="Add Comment">
             </form>
-        </div>{% endif %}
+        </div>
     </div>
 
 </div>

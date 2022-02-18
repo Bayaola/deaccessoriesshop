@@ -44,10 +44,14 @@ INSTALLED_APPS = [
     'taggit',
     'crispy_forms',
     'crispy_bootstrap5',
+    'mptt',
 
     'Stores',
     'Accounts',
     'Forums',
+    'Basket',
+
+    
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -79,6 +83,7 @@ TEMPLATES = [
 
                 # creer une variable globale accessible sur tous les templates
                 'Accounts.views.global_params',
+                "Basket.context_processors.basket",
             ],
         },
     },
@@ -133,6 +138,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = 'staticfiles/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -142,10 +148,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # LANGUAGE_SESSION_KEY = '_language'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = '/media/'
+
+# Basket session ID
+BASKET_SESSION_ID = "basket"
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+
 AUTH_USER_MODEL = 'Accounts.Account'
 
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'store-list'
-LOGOUT_REDIRECT_URL = 'store-list'
+# LOGIN_REDIRECT_URL = 'store_list'
+# LOGOUT_REDIRECT_URL = 'store_list'
