@@ -2,7 +2,10 @@
 
 <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
 <div class="container mt-3">
-    <div class="row"> 
+    <div class="row mb-3">
+        <a class="btn btn-info col-2" href="{% url 'forum-add' %}">Create forum</a>
+    </div>
+    <div class="row">
 
 
         <!-- Main content -->
@@ -15,7 +18,15 @@
                         <h5>
                             <a href=" {{ forum.get_absolute_url }} " class="text-primary text-capitalize"> {{ forum.title }} </a>
                         </h5>
-                        <p class="text-sm text-muted"><span class="op-6">Posted</span> <a class="text-black" href="#"> {{forum.created_at}} </a> <span class="op-6">ago by</span> <a class="text-black" href="#">{{ forum.user.name }}</a></p>
+                        <p class="text-sm text-muted"><span class="op-6">Posted</span> <a class="text-black" href="#"> {{forum.created_at}} </a> <span class="op-6">ago by</span> <a class="text-black" href="#">{{ forum.user.name }}</a>
+
+                        </p>
+
+                        <div>
+                            {% if request.user == forum.user %}
+                            <a href="{% url 'forum-edit' forum.id %}">Update</a>
+                            <a href="{% url 'forum-delete' forum.id %}">Delete</a> {% endif %}
+                        </div>
                         <!-- <div class="text-sm text-muted op-5"> <a class="text-black mr-2" href="#">#C++</a> <a class="text-black mr-2" href="#">#AppStrap Theme</a> <a class="text-black mr-2" href="#">#Wordpress</a> </div> -->
                     </div>
                     <div class="col-md-4 op-7">

@@ -44,15 +44,34 @@ class OwnerProtectMixin(object):
         return super(OwnerProtectMixin, self).dispatch(request, *args, **kwargs)
 
 
-class ForumCreate(CreateView):
-    model = Forum
-    fields = ['title','desc']
+@method_decorator(login_required, name='dispatch')
+class ForumUpdateView(OwnerProtectMixin, UpdateView):
+	model = Forum
+	fields = ['title','desc']
+	template_name = 'Forums/forum_update_form.html'
 
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)      
+	def get_success_url(self, **kwargs):
+		return reverse_lazy('forum-detail', kwargs={'slug' : self.object.slug})
 
 
+@method_decorator(login_required, name='dispatch')
+class ForumDeleteView(SuccessMessageMixin, OwnerProtectMixin, DeleteView):
+	model = Forum
+	success_url = '/forums'
+	success_message = 'Forum was successfully deleted'
+
+
+@method_decorator(login_required, name='dispatch')
+class ForumCreate(SuccessMessageMixin, CreateView):
+	model = Forum
+	fields = ['title','desc']
+
+	def form_valid(self, form):
+		form.instance.user = self.request.user
+		return super().form_valid(form)    
+
+
+@method_decorator(login_required, name='dispatch')
 class CommentCreateView(CreateView):
     model = Comment
     fields = ['desc']

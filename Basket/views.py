@@ -7,6 +7,7 @@ from .basket import Basket
 
 
 def basket_summary(request):
+    print(request.session['basket'], request.user)
     basket = Basket(request)
     return render(request, 'summary.html', {'basket': basket})
 
