@@ -19,7 +19,7 @@ from .models import Forum, Comment
 class ForumListView(ListView):
     model = Forum
     queryset = Forum.objects.order_by('-created_at')
-    paginate_by = 2
+    # paginate_by = 2
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

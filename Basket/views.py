@@ -9,14 +9,23 @@ from .basket import Basket
 def basket_summary(request):
     print(request.session['basket'], request.user)
     basket = Basket(request)
-    return render(request, 'summary.html', {'basket': basket})
+    wish_produits = Product.objects.filter(users_wishlist=request.user)
+    print(wish_produits)
+    context = {
+        'basket': basket,
+        'wish_produits': wish_produits
+    }
+    return render(request, 'summary.html', context)
 
 
 def basket_add(request):
     basket = Basket(request)
     if request.POST.get('action') == 'post':
         product_id = int(request.POST.get('productid'))
-        product_qty = int(request.POST.get('productqty'))
+        qty = request.POST.get('productqty')
+        if qty == '':
+            qty = 1
+        product_qty = int(qty)
         product = get_object_or_404(Product, id=product_id)
         basket.add(product=product, qty=product_qty)
 
