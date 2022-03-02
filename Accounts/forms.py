@@ -11,7 +11,7 @@ class RegistrationForm(forms.ModelForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
     # membership = forms.CharField(widget=forms.HiddenInput())
-    # free_membership = Membership.objects.get(membership_type='Free')        
+    free_membership = Membership.objects.get(membership_type='Free')        
 
     class Meta:
         model = Account       
@@ -19,7 +19,7 @@ class RegistrationForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(RegistrationForm, self).__init__(*args, **kwargs)
-        # self.fields['membership'].initial = self.free_membership
+        self.fields['membership'].initial = self.free_membership
 
     def clean_password2(self):
         # Check that the two password entries match

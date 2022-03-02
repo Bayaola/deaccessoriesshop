@@ -45,11 +45,18 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'mptt',
+    'qrcode',
+    'pyqrcode',
+    'png',
+    'ckeditor',
+    'ckeditor_uploader',
 
     'Stores',
     'Accounts',
     'Forums',
     'Basket',
+    'Orders',
+    'Blogs',
 
     
 ]
@@ -132,6 +139,19 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+# CKEDITOR
+CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_FILENAME_GENERATOR = 'utils.get_filename'
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 400,
+        'width': 1000,
+    },
+}
 
 
 # Static files (CSS, JavaScript, Images)

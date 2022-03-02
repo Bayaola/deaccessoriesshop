@@ -7,8 +7,9 @@ from .basket import Basket
 
 
 def basket_summary(request):
-    print(request.session['basket'], request.user)
+    # print(request.session['basket'], request.user)
     basket = Basket(request)
+    print('yes')
     wish_produits = Product.objects.filter(users_wishlist=request.user)
     print(wish_produits)
     context = {
@@ -19,6 +20,7 @@ def basket_summary(request):
 
 
 def basket_add(request):
+    print("yes")
     basket = Basket(request)
     if request.POST.get('action') == 'post':
         product_id = int(request.POST.get('productid'))

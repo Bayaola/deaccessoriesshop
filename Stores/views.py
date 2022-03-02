@@ -21,6 +21,7 @@ def category_list(request, category_slug=None):
 
 
 def product_detail(request, slug):
+    
     if request.method == 'POST':
         form = UserCommentProductForm(request.POST)
         if form.is_valid():
@@ -31,7 +32,7 @@ def product_detail(request, slug):
             # print(desc, author, product)
             return HttpResponseRedirect('/'+slug)
     else:
-        form = UserCommentProductForm(request.POST)
+        form = UserCommentProductForm()
         product = get_object_or_404(Product, slug=slug, is_active=True)
         productComments = CommentProduct.objects.filter(product=product)
         context ={

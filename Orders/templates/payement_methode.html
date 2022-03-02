@@ -1,0 +1,112 @@
+{% extends 'layout/base.html' %} {% load crispy_forms_tags %} {% load static %} {% block content %} {% include "layout/_nav.html" %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+            <form class="form-group" action="" method="post">
+                {% csrf_token %} {{ form.as_p }}
+
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+
+        <div class="col-4 text-center">
+            <p class="">Prix total: $ {{ prixTotal }} </p>
+            <img id="image_wallet" class="h-100 w-100" hidden src="">
+            <div class="row" hidden id="zone_texte">
+                <p>Faitez le depot sur ce numero <strong id="numero"></strong> </p> <br>
+                <p id="nom_transaction"></p>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+{% endblock content %} {% block javascript %}
+
+<script>
+    document.querySelector("#id_payment_option").addEventListener("click", event => {
+        event.preventDefault();
+        let formData = new FormData();
+        var id = event.target.value;
+        formData.append('id', id);
+
+        // On récupère la valeur du jeton CSRF
+        let csrfTokenValue = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        const request = new Request('{% url "Orders:payementSelect" %}', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': csrfTokenValue
+            } // On ajoute le token dans l'en-tête
+        });
+
+        // On exécute la requête
+        fetch(request)
+            .then(response => response.json())
+            .then(result => {
+                if (typeof result["payement_method_info"] === 'object') {
+                    numero = result["payement_method_info"][0];
+                    nom = result["payement_method_info"][1];
+                    const resultElement_numero = document.querySelector("#numero");
+                    const resultElement_nom = document.querySelector("#nom_transaction");
+                    resultElement_numero.innerHTML = numero;
+                    resultElement_nom.innerHTML = nom;
+                    $("#image_wallet").attr("hidden", true);
+                    $("#id_order_key").removeAttr('hidden');
+                    $("#zone_texte").removeAttr('hidden');
+                } else {
+                    $("#image_wallet").attr("src", result["payement_method_info"]);
+                    $("#zone_texte").attr("hidden", true);
+                    $("#id_order_key").attr("hidden", true);
+                    $("#image_wallet").removeAttr('hidden');
+                }
+            })
+    })
+
+    $(document).ready(function() {
+
+        $("#id_total_paid").attr("hidden", true);
+        $("#id_total_paid").val(00);
+        let formData = new FormData();
+        var id = $("#id_payment_option").val();
+        formData.append('id', id);
+
+        // On récupère la valeur du jeton CSRF
+        let csrfTokenValue = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        const request = new Request('{% url "Orders:payementSelect" %}', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': csrfTokenValue
+            } // On ajoute le token dans l'en-tête
+        });
+
+        // On exécute la requête
+        fetch(request)
+            .then(response => response.json())
+            .then(result => {
+                if (typeof result["payement_method_info"] === 'object') {
+                    numero = result["payement_method_info"][0];
+                    nom = result["payement_method_info"][1];
+                    const resultElement_numero = document.querySelector("#numero");
+                    const resultElement_nom = document.querySelector("#nom_transaction");
+                    resultElement_numero.innerHTML = numero;
+                    resultElement_nom.innerHTML = nom;
+                    $("#image_wallet").attr("hidden", true);
+                    $("#id_order_key").removeAttr('hidden');
+                    $("#zone_texte").removeAttr('hidden');
+                } else {
+                    $("#image_wallet").attr("src", result["payement_method_info"]);
+                    $("#zone_texte").attr("hidden", true);
+                    $("#id_order_key").attr("hidden", true);
+                    $("#image_wallet").removeAttr('hidden');
+                }
+            })
+    })
+</script>
+
+{% endblock %}
