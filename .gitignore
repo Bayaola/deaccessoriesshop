@@ -132,3 +132,9 @@ dmypy.json
 # Autres
 Lumia/
 document/
+templates_old/
+Accounts/templates_old/
+Basket/templates_old/
+Forums/templates_old/
+Orders/templates_old/
+Stores/templates_old/
