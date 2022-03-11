@@ -56,12 +56,12 @@
                     resultElement_numero.innerHTML = numero;
                     resultElement_nom.innerHTML = nom;
                     $("#image_wallet").attr("hidden", true);
-                    $("#id_order_key").removeAttr('hidden');
+                    // $("#id_id_trasaction").removeAttr('hidden');
                     $("#zone_texte").removeAttr('hidden');
                 } else {
                     $("#image_wallet").attr("src", result["payement_method_info"]);
                     $("#zone_texte").attr("hidden", true);
-                    $("#id_order_key").attr("hidden", true);
+                    // $("#id_id_trasaction").attr("hidden", true);
                     $("#image_wallet").removeAttr('hidden');
                 }
             })
@@ -97,12 +97,12 @@
                     resultElement_numero.innerHTML = numero;
                     resultElement_nom.innerHTML = nom;
                     $("#image_wallet").attr("hidden", true);
-                    $("#id_order_key").removeAttr('hidden');
+                    $("#id_id_trasaction").removeAttr('hidden');
                     $("#zone_texte").removeAttr('hidden');
                 } else {
                     $("#image_wallet").attr("src", result["payement_method_info"]);
                     $("#zone_texte").attr("hidden", true);
-                    $("#id_order_key").attr("hidden", true);
+                    $("#id_id_trasaction").attr("hidden", true);
                     $("#image_wallet").removeAttr('hidden');
                 }
             })

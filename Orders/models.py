@@ -17,7 +17,7 @@ class Order(models.Model):
     updated = models.DateTimeField(auto_now=True)
     total_paid = models.DecimalField(max_digits=5, decimal_places=2)
     payment_option = models.ForeignKey('PayementMethode', on_delete=models.RESTRICT, related_name="payment_option", default='')
-    order_key = models.CharField(max_length=200)
+    id_trasaction = models.CharField(max_length=200)
     billing_status = models.BooleanField(default=False)
 
     class Meta:

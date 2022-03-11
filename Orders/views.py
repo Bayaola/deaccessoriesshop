@@ -26,7 +26,7 @@ def add(request):
     basket = Basket(request)
     # if request.POST.get('action') == 'post':
     if request.method == 'POST':
-        order_key = request.POST.get('order_key')
+        id_trasaction = request.POST.get('id_trasaction')
         user_id = request.user.id
         baskettotal = basket.get_total_price()
 
@@ -39,18 +39,18 @@ def add(request):
         # print(payment_option)
 
         # Check if order exists
-        if Order.objects.filter(order_key=order_key).exists():
+        if Order.objects.filter(id_trasaction=id_trasaction).exists():
             pass
         else:
             order = Order.objects.create(
                         user_id=user_id, address=address, city=city, postal_code=postal_code,
-                        country_code=country_code, total_paid=baskettotal, order_key=order_key,
+                        country_code=country_code, total_paid=baskettotal, id_trasaction=id_trasaction,
                         payment_option=payment_option
                     )
-            order_id = order.pk
+            id_trasaction = order.pk
 
             for item in basket:
-                OrderItem.objects.create(order_id=order_id, product=item['product'], price=item['price'], quantity=item['qty'])
+                OrderItem.objects.create(id_trasaction=id_trasaction, product=item['product'], price=item['price'], quantity=item['qty'])
 
         response = JsonResponse({'success': 'Return something'})
         # return response

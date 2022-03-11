@@ -15,4 +15,4 @@ from .models import Order
 class PayementForm(ModelForm):
     class Meta:
         model = Order
-        fields = ['address', 'city', 'postal_code', 'country_code', 'total_paid', 'payment_option', 'order_key']
+        fields = ['address', 'city', 'postal_code', 'country_code', 'total_paid', 'payment_option', 'id_trasaction']
