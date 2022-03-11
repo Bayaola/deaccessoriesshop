@@ -1,94 +1,90 @@
 {% load static %}
-<nav class="container-fluid navbar navbar-expand-lg mb-0 bg-light">
 
-    <a class="navbar-brand p-0" href="/">
-        <img src="{% static 'img/logo.png' %}" width="70" height="60" class="d-inline-block align-text-top">
-    </a>
-    <div class="navbar-collapse justify-content-center" id="navbarNav">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="#"><span class="fa fa-book"></span> Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'Stores:store_home' %}"><span class="fa fa-store-all"></span> Products</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#"><span class="fa fa-book"></span> Services</a>
-            </li>
-            
-            
-            <!--  <li class="nav-item">
-                <a class="nav-link" href="#"><span class="fa fa-exclamation-triangle"></span> Service</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link " href="#"><span class="fa fa-shield"></span> Galary</a>
-            </li> -->
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'forum-list' %}"><span class="fa fa-check-square-o"></span> Forum</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'Blogs:home' %}"><span class="fa fa-question-circle"></span> Blog</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#"><span class="fa fa-check-square-o"></span> About Us</a>
-            </li>
-        </ul>
+<header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center">
+
+        <div class="logo me-auto">
+            <h1><a href="index.html">Design Genius</a></h1>
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a> -->
+        </div>
+
+        <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul>
+                <li><a class="nav-link scrollto active" href="">Home</a></li>
+                <li><a class="nav-link scrollto" href="{% url 'Stores:store_home' %}">Products</a></li>
+                <li><a class="nav-link scrollto" href="">Services</a></li>
+                <li><a class="nav-link scrollto " href="{% url 'forum-list' %}">Forums</a></li>
+                <li><a class="nav-link scrollto" href="{% url 'Blogs:home' %}">Blogs</a></li>
+
+                <li><a class="nav-link scrollto" href="">About Us</a></li>
+
+                <hr class="m-2" style="border-left: 1px solid black; height: 50px;">
+
+                {% if request.user.is_authenticated %}
+                <li class="">
+                    <a type="button" role="button" href="{% url 'Basket:basket_summary' %}" class="nav-link scrollto border-lg-0 basket-btn">
+                        {% with total_qty=basket|length %}
+                            <div id="basket-qty" class="basket-qty">
+                                {% if total_qty > 0 %}
+                                {{ total_qty }}
+                                {% else %}
+                                0
+                                {% endif %}
+                            </div>
+                        {% endwith %}
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-cart3"
+                                viewBox="0 0 16 16">
+                                <path
+                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                            </svg>
+                        </div>
+                    </a>
+                </li>
+
+                <li class="">
+                    <p class="nav-link scrollto pt-4 ">Hi, {{ request.user.name }}</p>
+                </li>
+                
+                
+
+                {% if subscription_info.active == False %}
+                <span></span> {% if request.user.membership.membership_type == 'Free' %}
+                <li class="">
+                    <a class="nav-link scrollto m-0 p-1 " href="{% url 'Accounts:select' %}"> Premium</a>
+                </li>
+                {% else %}
+
+                <li class="">
+                    <a class="btn btn-secondary m-0 p-1 disabled"> Being validated</a>
+                </li>
+                {% endif %}
+                <span></span> {% endif %}
+                <li class="">
+                    <a href="{% url 'Accounts:logout' %}" class="nav-link"><span class="fa fa-sign-out m-0"></span> Logout</a>
+                </li>
+                {% else %}
+
+                <li class="">
+                    <a class="nav-link" href="{% url 'Accounts:register' %}"><span class="fa fa-user-plus"></span> register</a>
+                </li>
+
+                <li class="">
+                    <a class="nav-link" href="{% url 'Accounts:login' %}"><span class="fa fa-sign-in"></span> Login</a>
+                </li>
+
+                {% endif %}
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav>
+
+        <div class="navbar order-last order-lg-0 header-social-links d-flex align-items-center">
+            <ul>
+                
+
+            </ul>
+        </div>
+
     </div>
-
-    <span class="border-left m-2"></span>
-    <div class="justify-content-end">
-        <ul class="navbar-nav">
-            {% if request.user.is_authenticated %}
-
-            <a type="button" role="button" href="{% url 'Basket:basket_summary' %}" class="btn btn-outline-secondary border-0 basket-btn">
-            {% with total_qty=basket|length %}
-            <div id="basket-qty" class="basket-qty">
-              {% if total_qty > 0 %}
-              {{ total_qty }}
-              {% else %}
-              0
-              {% endif %}
-            </div>
-            {% endwith %}
-            <div>
-              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-cart3"
-                viewBox="0 0 16 16">
-                <path
-                  d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-              </svg>
-            </div>
-            <span class="fs15 fw500">Basket</span>
-          </a>
-
-            <p class="pt-2">Welcome {{ request.user.name }} </p>{% if subscription_info.active == False %} {% if request.user.membership.membership_type == 'Free' %}
-            <li class="nav-item m-1 p-0">
-                <a class=" btn btn-success m-0 p-1" href=" {% url 'Accounts:select' %} "> Premium</a>
-            </li>
-            {% else %}
-            <li class="nav-item m-1 p-0">
-                <a class=" btn btn-secondary m-0 p-1 disabled"> Being validated</a>
-            </li>
-            {% endif %} {% endif %}
-            <li class="nav-item">
-                <a href="{% url 'Accounts:logout' %}" class="nav-link"><span class="fa fa-sign-out"></span> Logout</a>
-            </li>
-            {% else %}
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'Accounts:register' %}"><span class="fa fa-user-plus"></span> register</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'Accounts:login' %}"><span class="fa fa-sign-in"></span> Login</a>
-            </li>
-
-            {% endif %}
-
-        </ul>
-    </div>
-
-
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-</nav> <br>
-<!-- <hr class="mt-0 mb-0"> -->
+</header>
