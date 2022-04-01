@@ -47,10 +47,10 @@ def add(request):
                         country_code=country_code, total_paid=baskettotal, id_trasaction=id_trasaction,
                         payment_option=payment_option
                     )
-            id_trasaction = order.pk
+            id_order = order
 
             for item in basket:
-                OrderItem.objects.create(id_trasaction=id_trasaction, product=item['product'], price=item['price'], quantity=item['qty'])
+                OrderItem.objects.create(order=id_order, product=item['product'], price=item['price'], quantity=item['qty'])
 
         response = JsonResponse({'success': 'Return something'})
         # return response

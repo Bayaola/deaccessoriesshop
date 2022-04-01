@@ -29,8 +29,7 @@ def product_detail(request, slug):
             desc = form.cleaned_data['desc']
             author = request.user
             CommentProduct(product=product, author=author, desc=desc).save()
-            # print(desc, author, product)
-            return HttpResponseRedirect('/'+slug)
+            return HttpResponseRedirect('/product/'+slug+'/')
     else:
         form = UserCommentProductForm()
         product = get_object_or_404(Product, slug=slug, is_active=True)

@@ -58,6 +58,8 @@ class Membership(models.Model):
         choices=MEMBERSHIP_CHOICES, default='Free', max_length=30
     )
     slug = models.SlugField(null=True, blank=True)
+    # slug = models.SlugField(max_length=200, unique=True)
+    # desc = models.TextField()
     periode = models.IntegerField()
     price = models.DecimalField(default=0, max_digits=5, decimal_places=2)
 
@@ -75,7 +77,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
     name = models.CharField(max_length=150)
     phone = models.CharField(max_length=50)
     date_of_birth = models.DateField(blank=True, null=True)
-    picture = models.ImageField(blank=True, null=True)
+    picture = models.ImageField(upload_to='avatars', default='default.jpeg', blank=True, null=True)
     membership = models.ForeignKey('Membership', related_name='user_membership', on_delete=models.SET_NULL, null=True)
     # is_premium = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
@@ -95,6 +97,11 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
     def get_short_name(self):
         return self.name.split()[0]
+
+    @property
+    def get_picture_url(self):
+        if self.picture and hasattr(self.picture, 'url'):
+            return self.picture.url
 
 
 class Subscription(models.Model):

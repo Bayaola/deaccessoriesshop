@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'Basket',
     'Orders',
     'Blogs',
+    'Services',
 
     
 ]

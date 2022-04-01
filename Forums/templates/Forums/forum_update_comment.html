@@ -1,10 +1,18 @@
 {% extends 'layout/base.html' %} {% load crispy_forms_tags %} {% load static %} {% block content %} {% include "layout/_nav.html" %}
 
-<h2>Edit Comment</h2>
-<form method="post">
-	{% csrf_token %}
-	{{ form.as_p }}
-	<button type="submit" name="button">Submit</button>
-</form>
+<div class="container" style="margin-top:130px;">
+    <div class="row container">
+        <div class="col-lg-8 d-block mx-auto">
+            <h2 class="text-center">Edit Comment</h2>
+            <form class="form-group" method="post">
+                {% csrf_token %}
+                <div class="col-lg-12 col-md-12">
+                    {{ form.desc|as_crispy_field }}
+                </div>
+                <button class="btn btn-success" type="submit" name="button">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
 
 {% endblock content %}

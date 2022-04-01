@@ -12,7 +12,8 @@ from django.db.models.signals import post_save
 class Forum(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
-    slug = models.SlugField(blank=True, null=True, unique=True)
+    slug = models.SlugField(null=True, blank=True)
+    # slug = models.SlugField(max_length=200, unique=True)
     desc = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     

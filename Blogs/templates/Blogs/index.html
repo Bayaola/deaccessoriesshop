@@ -16,36 +16,30 @@
     }
 </style>
 
-<header class="masthead">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row">
-            <div class=" col-md-8 col-md-10 mx-auto">
-                <div class="site-heading">
-                    <h3 class=" site-heading my-4 mt-3 "> Welcome to my awesome Blog </h3>
-                    
-                    </p>
-                </div>
-            </div>
-        </div>
+<div class="container portfolio-details" id="portfolio-details" style="margin-top:80px;">
+
+    <div class="section-title pb-1">
+        <h2>Blog</h2>
     </div>
-</header>
-<div class="container">
-    <div class="row">
-        <!-- Blog Entries Column -->
-        <div class="col-md-8 mt-3 left">
-            {% for post in post_list %}
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h2 class="card-title">{{ post.title }}</h2>
-                    <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} </p>
-                    <p class="card-text">{{post.content|slice:":200"|safe }}</p>
-                    <a href="{% url 'Blogs:post_detail' post.slug  %}" class="btn btn-primary">Read More &rarr;</a>
+
+    <div class="container ">
+        <div class="row">
+            <!-- Blog Entries Column -->
+            <div class="col-md-8 left d-block mx-auto">
+                {% for post in post_list %}
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <h2 class="card-title">{{ post.title }}</h2>
+                        <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} </p>
+                        <p class="card-text">{{post.content|slice:":110"|safe }}...</p>
+                        <a href="{% url 'Blogs:post_detail' post.slug  %}" class="btn btn-primary">Read More &rarr;</a>
+                    </div>
                 </div>
+                {% endfor %}
             </div>
-            {% endfor %}
+            
         </div>
-        
     </div>
 </div>
+
 {%endblock%}

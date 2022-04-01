@@ -16,8 +16,7 @@ admin.site.register(Category, MPTTModelAdmin)
 
 admin.site.register(ProductType)
 
-admin.site.register(CommentProduct)
-
+admin.site.register(CommentProduct) 
 
 class ProductImageInline(admin.TabularInline):
     model = ProductImage
