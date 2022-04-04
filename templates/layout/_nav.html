@@ -17,7 +17,7 @@
                 <li><a class="nav-link scrollto " href="{% url 'forum-list' %}">Forums</a></li>
                 <li><a class="nav-link scrollto" href="{% url 'Blogs:home' %}">Blogs</a></li>
 
-                <li><a class="nav-link scrollto" href="">About Us</a></li>
+                <li><a class="nav-link scrollto" href="{% url 'Home:about' %}">About Us</a></li>
 
                 <hr class="m-2" style="border-left: 1px solid black; height: 50px;"> {% if request.user.is_authenticated %}
                 <li class="">
