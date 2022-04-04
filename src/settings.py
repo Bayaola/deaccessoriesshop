@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-nt=e8$uqsg_4m%zxxhk+11#!9zsl%lh&i_7wv#i0xk@_zbn4*v'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['designgenius.herokuapp.com', '127.0.0.1', 'designgenius.biz', '*']
 
@@ -105,13 +105,30 @@ WSGI_APPLICATION = 'src.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+	
+DATABASES = {}
+if DEBUG:
 
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+    
+else:
+    
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'PASSWORD': 'rMcEBoai0vTEKTuSlVW7HnwOQemeok4-',
+            'HOST': 'hattie.db.elephantsql.com',
+            'NAME': 'devsdcak',
+            'USER': 'devsdcak',
+        }
+    }
+
+postgres://devsdcak:rMcEBoai0vTEKTuSlVW7HnwOQemeok4-@hattie.db.elephantsql.com/devsdcak
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
