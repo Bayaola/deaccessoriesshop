@@ -25,3 +25,6 @@ sqlparse==0.4.2
 whitenoise
 django-heroku
 gunicorn
+psycopg2
+dj-database-url
+dj-static
