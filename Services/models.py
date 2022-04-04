@@ -2,6 +2,8 @@ from distutils import text_file
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from pyuploadcare.dj.models import ImageField
+
 # Create your models here.
 
 class Service(models.Model):
@@ -9,12 +11,7 @@ class Service(models.Model):
     slug = models.SlugField(max_length=200, unique=True)
     desc = models.CharField(max_length=2500, blank=True)
     content = models.TextField()
-    image = models.ImageField(
-        help_text=_("Upload a product image"),
-        upload_to="images/",
-        default="images/default.png",
-        blank=True
-    )
+    image = ImageField(blank=True, manual_crop="")
     
     def __str__(self):
         return self.title

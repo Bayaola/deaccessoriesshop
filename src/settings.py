@@ -23,6 +23,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-nt=e8$uqsg_4m%zxxhk+11#!9zsl%lh&i_7wv#i0xk@_zbn4*v'
 
+UPLOADCARE = {
+    'pub_key': 'f75cd88ed6d003f0123a',
+    'secret': 'a47627ebec838ed0efca'
+}
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
@@ -59,6 +64,8 @@ INSTALLED_APPS = [
     'Blogs',
     'Services',
 
+
+    'pyuploadcare.dj',
     
 ]
 

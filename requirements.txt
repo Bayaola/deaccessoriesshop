@@ -28,3 +28,4 @@ gunicorn
 psycopg2
 dj-database-url
 dj-static
+pyuploadcare==3.0.0

@@ -2,6 +2,7 @@ from django.db import models
 from ckeditor.fields import RichTextField
 from django.conf import settings
 
+from pyuploadcare.dj.models import ImageField
 
 STATUS = (
     (0,"Draft"),

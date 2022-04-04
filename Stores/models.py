@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from mptt.models import MPTTModel, TreeForeignKey
 
+from pyuploadcare.dj.models import ImageField
 
 class Category(MPTTModel):
     """
@@ -154,12 +155,7 @@ class ProductImage(models.Model):
     """
 
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="product_image")
-    image = models.ImageField(
-        verbose_name=_("image"),
-        help_text=_("Upload a product image"),
-        upload_to="images/",
-        default="images/default.png",
-    )
+    image = ImageField(blank=True, manual_crop="")
     alt_text = models.CharField(
         verbose_name=_("Alturnative text"),
         help_text=_("Please add alturnative text"),

@@ -7,6 +7,8 @@ import time
 from .utils import MEMBERSHIP_CHOICES
 # Create your models here.
 
+from pyuploadcare.dj.models import ImageField
+
 
 class AccountManager(BaseUserManager):
     use_in_migrations = True
@@ -77,7 +79,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
     name = models.CharField(max_length=150)
     phone = models.CharField(max_length=50)
     date_of_birth = models.DateField(blank=True, null=True)
-    picture = models.ImageField(upload_to='avatars', default='default.jpeg', blank=True, null=True)
+    picture = ImageField(blank=True, null=True, manual_crop="")
     membership = models.ForeignKey('Membership', related_name='user_membership', on_delete=models.SET_NULL, null=True)
     # is_premium = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)

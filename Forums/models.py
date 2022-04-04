@@ -6,6 +6,8 @@ from django.urls import reverse
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 
+from pyuploadcare.dj.models import ImageField
+
 # Create your models here.
 
 
