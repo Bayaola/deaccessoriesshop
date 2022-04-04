@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-nt=e8$uqsg_4m%zxxhk+11#!9zsl%lh&i_7wv#i0xk@_zbn4*v'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['designgenius.herokuapp.com', '127.0.0.1', 'designgenius.biz', '*']
 
@@ -107,7 +107,7 @@ WSGI_APPLICATION = 'src.wsgi.application'
 
 	
 DATABASES = {}
-if DEBUG:
+if not DEBUG:
 
     DATABASES = {
         'default': {
