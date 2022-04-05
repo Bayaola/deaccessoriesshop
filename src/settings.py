@@ -124,14 +124,25 @@ if DEBUG:
     }
     
 else:
+    # designGenius
+    # DATABASES = {
+    #     'default': {
+    #         'ENGINE': 'django.db.backends.postgresql',
+    #         'PASSWORD': 'rMcEBoai0vTEKTuSlVW7HnwOQemeok4-',
+    #         'HOST': 'hattie.db.elephantsql.com',
+    #         'NAME': 'devsdcak',
+    #         'USER': 'devsdcak',
+    #     }
+    # }
     
+    # designGenius2
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'PASSWORD': 'rMcEBoai0vTEKTuSlVW7HnwOQemeok4-',
+            'PASSWORD': 'ggx_0fWAxhmVDMwrlp7bURqsYb3OJXhK',
             'HOST': 'hattie.db.elephantsql.com',
-            'NAME': 'devsdcak',
-            'USER': 'devsdcak',
+            'NAME': 'vacqjqtp',
+            'USER': 'vacqjqtp',
         }
     }
 
