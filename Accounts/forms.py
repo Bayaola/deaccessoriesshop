@@ -4,6 +4,8 @@ from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from . models import *
 from django.contrib.auth import get_user_model
 
+from pyuploadcare.dj.forms import ImageField
+
 User = get_user_model()
 
 

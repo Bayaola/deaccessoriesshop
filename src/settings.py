@@ -199,8 +199,8 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 AUTH_USER_MODEL = 'Accounts.Account'
 
 LOGIN_URL = 'Accounts:login'
-LOGIN_REDIRECT_URL = 'Stores:store_home'
-LOGOUT_REDIRECT_URL = 'Stores:store_home'
+LOGIN_REDIRECT_URL = 'Home:home'
+LOGOUT_REDIRECT_URL = 'Home:home'
 
 
 # Static files (CSS, JavaScript, Images)

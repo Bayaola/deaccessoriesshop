@@ -74,12 +74,17 @@ class Membership(models.Model):
         return self.membership_type
 
 
+# class ProfileImage(models.Model):
+#     picture = ImageField(blank=True, manual_crop="")
+#     account = models.OneToOneField("Account", on_delete=models.SET_NULL)
+
+
 class Account(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     name = models.CharField(max_length=150)
     phone = models.CharField(max_length=50)
     date_of_birth = models.DateField(blank=True, null=True)
-    picture = ImageField(blank=True, null=True, manual_crop="")
+    picture = ImageField(blank=True, manual_crop="")
     membership = models.ForeignKey('Membership', related_name='user_membership', on_delete=models.SET_NULL, null=True)
     # is_premium = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
