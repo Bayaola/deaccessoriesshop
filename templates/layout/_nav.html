@@ -4,10 +4,16 @@
     <div class="container d-flex align-items-center">
 
         <div class="logo me-auto">
-            <h1><a href="{% url 'Home:home' %}">Design Genius</a></h1>
-            <!-- Uncomment below if you prefer to use an image logo -->
-            <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a> -->
+            
+            <nav class="navbar navbar-light bg-light">
+                <a class="navbar-brand" href="{% url 'Home:home' %}">
+                  <img src="{% static 'assets/img/logo.jpg' %}" width="50" height="50" class="d-inline-block align-top" alt="">
+                  Design Genius
+                </a>
+            </nav>
+        
         </div>
+        
 
         <nav id="navbar" class="navbar order-last order-lg-0">
             <ul>
@@ -45,8 +51,6 @@
                     <p class="nav-link scrollto pt-4 ">Hi, {{ request.user.name }}</p>
                 </li>
 
-
-
                 {% if subscription_info.active == False %}
                 <span></span> {% if request.user.membership.membership_type == 'Free' %}
                 <li class="">
@@ -77,12 +81,6 @@
             <i class="bi bi-list mobile-nav-toggle"></i>
         </nav>
 
-        <div class="navbar order-last order-lg-0 header-social-links d-flex align-items-center">
-            <ul>
-
-
-            </ul>
-        </div>
 
     </div>
 </header>
