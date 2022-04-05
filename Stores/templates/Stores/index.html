@@ -18,8 +18,8 @@
                         {% for image in product.product_image.all %} 
                             {% if image.is_feature%}
                             <figure>
-                                <img src="{{ image.image.url }}" class="img-fluid" alt="">
-                                <a href="{{ image.image.url }}" data-gallery="portfolioGallery" class="link-preview portfolio-lightbox"><i class="bx bx-plus"></i></a>
+                                <img src="{{ image.image.cdn_url }}" class="img-fluid" alt="">
+                                <a href="{{ image.image.cdn_url }}" data-gallery="portfolioGallery" class="link-preview portfolio-lightbox"><i class="bx bx-plus"></i></a>
                                 <a href="{{ product.get_absolute_url }}" class="link-details" title="More Details"><i class="bx bx-link"></i></a>
                             </figure>
                             {% endif %} 
