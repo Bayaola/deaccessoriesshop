@@ -29,7 +29,7 @@ UPLOADCARE = {
 }
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['designgenius.herokuapp.com', '127.0.0.1', 'designgenius.biz', '*']
 
@@ -113,38 +113,38 @@ WSGI_APPLICATION = 'src.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 	
-# DATABASES = {}
-# if DEBUG:
+DATABASES = {}
+if DEBUG:
 
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': BASE_DIR / 'db.sqlite3',
-#         }
-#     }
-    
-# else:
-    # designGenius
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'PASSWORD': 'rMcEBoai0vTEKTuSlVW7HnwOQemeok4-',
-        'HOST': 'hattie.db.elephantsql.com',
-        'NAME': 'devsdcak',
-        'USER': 'devsdcak',
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
     
-    # designGenius2
+else:
+    # designGenius
     # DATABASES = {
     #     'default': {
     #         'ENGINE': 'django.db.backends.postgresql',
-    #         'PASSWORD': 'ggx_0fWAxhmVDMwrlp7bURqsYb3OJXhK',
+    #         'PASSWORD': 'rMcEBoai0vTEKTuSlVW7HnwOQemeok4-',
     #         'HOST': 'hattie.db.elephantsql.com',
-    #         'NAME': 'vacqjqtp',
-    #         'USER': 'vacqjqtp',
+    #         'NAME': 'devsdcak',
+    #         'USER': 'devsdcak',
     #     }
     # }
+    
+    # designGenius2
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'PASSWORD': 'ggx_0fWAxhmVDMwrlp7bURqsYb3OJXhK',
+            'HOST': 'hattie.db.elephantsql.com',
+            'NAME': 'vacqjqtp',
+            'USER': 'vacqjqtp',
+        }
+    }
 
 
 # Password validation
