@@ -36,7 +36,7 @@ class PayementMethode(models.Model):
     image = ImageField(blank=True, manual_crop="") #models.ImageField(upload_to="images/qr_code/", blank=True, null=True)
 
     def save(self, *args, **kwargs):
-        if self.name in ('USDT (TETHER)', 'BITCOIN (BTC)', 'TRC20'):
+        if self.name in ('USDT (TETHER)', 'BITCOIN (BTC)', 'Tron (TRC20)'):
             if not self.image:
                 from tempfile import TemporaryFile
                 from django.core.files.storage import default_storage

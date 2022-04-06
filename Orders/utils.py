@@ -3,5 +3,5 @@ PAYMENT_CHOICES = (
     ('MOBILE MONEY (MM)', 'MOBILE MONEY'),
     ('USDT (TETHER)', 'USDT (TETHER)'),
     ('BITCOIN (BTC)', 'BITCOIN (BTC)'),
-    ('TRC20', 'TRC20')
+    ('Tron (TRC20)', 'Tron (TRC20)')
 )
