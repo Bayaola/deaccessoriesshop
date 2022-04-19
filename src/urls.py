@@ -31,3 +31,8 @@ urlpatterns = [
     path('blogs/', include('Blogs.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+admin.site.site_header = "Design Genius Admin"
+admin.site.site_title = "Design Genius Admin Portal"
+admin.site.index_title = "Site d’administration Design Genius"

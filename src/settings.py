@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'Orders',
     'Blogs',
     'Services',
+    'Home',
 
 
     'pyuploadcare.dj',
@@ -223,3 +224,4 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+

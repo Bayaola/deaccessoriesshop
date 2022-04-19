@@ -33,21 +33,30 @@ class PayementMethode(models.Model):
     name = models.CharField(choices=PAYMENT_CHOICES, max_length=150, unique=True)
     name_of_the_beneficiary = models.CharField(max_length=250, null=True)
     number_id = models.CharField(max_length=150, unique=True, null=True)
-    image = ImageField(blank=True, manual_crop="") #models.ImageField(upload_to="images/qr_code/", blank=True, null=True)
+    # image = ImageField(blank=True, manual_crop="") 
+    image = models.ImageField(upload_to="images/qr_code/", blank=True, null=True)
 
     def save(self, *args, **kwargs):
         if self.name in ('USDT (TETHER)', 'BITCOIN (BTC)', 'Tron (TRC20)'):
+            print("yes 2")
             if not self.image:
+                print("yes 3")
                 from tempfile import TemporaryFile
-                from django.core.files.storage import default_storage
+                from django.core.files.storage import default_storage, Storage, DefaultStorage, FileSystemStorage
                 from django.core.files.base import ContentFile
                 from django.utils.encoding import force_str
                 import qrcode
+                from pyuploadcare import Uploadcare
                 with TemporaryFile() as f:
+                    print("yes 4")
                     img = qrcode.make(self.number_id)
                     img.save(f)
                     f.seek(0)
+                    print("yes 5")
+                    # print(f.read())
                     self.image = default_storage.save(force_str("%s.png"%self.name), ContentFile(f.read()))
+                    
+                    print("yes 2")
         super(PayementMethode, self).save(*args, **kwargs)
 
     def __str__(self):

@@ -1,4 +1,6 @@
+import imp
 from django.shortcuts import render
+from Home.models import Teams
 
 # Create your views here.
 
@@ -7,4 +9,8 @@ def home(request):
 
 
 def about(request):
-    return render(request, 'Home/about.html')
+    teams = Teams.objects.all()
+    context = {
+        'teams': teams
+    }
+    return render(request, 'Home/about.html', context)
