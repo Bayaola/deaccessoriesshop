@@ -33,8 +33,8 @@ class PayementMethode(models.Model):
     name = models.CharField(choices=PAYMENT_CHOICES, max_length=150, unique=True)
     name_of_the_beneficiary = models.CharField(max_length=250, null=True)
     number_id = models.CharField(max_length=150, unique=True, null=True)
-    # image = ImageField(blank=True, manual_crop="") 
-    image = models.ImageField(upload_to="images/qr_code/", blank=True, null=True)
+    image = ImageField(blank=True, manual_crop="") 
+    # image = models.ImageField(upload_to="images/qr_code/", blank=True, null=True)
 
     def save(self, *args, **kwargs):
         if self.name in ('USDT (TETHER)', 'BITCOIN (BTC)', 'Tron (TRC20)'):
