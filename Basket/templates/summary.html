@@ -57,8 +57,8 @@
                         {% if image.is_feature%}
                         <figure>
                             <img src="{{ image.image.url }}" class="img-fluid" alt="">
-                            <a href="{{ image.image.url }}" data-gallery="portfolioGallery" class="link-preview portfolio-lightbox"><i class="bx bx-plus"></i></a>
-                            <a href="{{ product.get_absolute_url }}" class="link-details" title="More Details"><i class="bx bx-link"></i></a>
+                            <a href="{{ image.image.url }}" data-gallery="portfolioGallery" class="link-preview portfolio-lightbox"><i class="bx bx-plus img-fluid"></i></a>
+                            <a href="{{ product.get_absolute_url }}" class="link-details" title="More Details"><i class="bx bx-link img-fluid"></i></a>
                         </figure>
                         {% endif %} 
                     {% endfor %}

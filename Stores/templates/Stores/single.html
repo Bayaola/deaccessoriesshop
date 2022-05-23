@@ -23,11 +23,11 @@
                     <div class="swiper-wrapper align-items-center">
                         {% for image in product.product_image.all %} {% if image.is_feature %}
                         <div class="swiper-slide">
-                            <img src="{{ image.image.cdn_url }}" alt="{{ image.image.alt_text }}">
+                            <img class="img-fluid" src="{{ image.image.cdn_url }}" alt="{{ image.image.alt_text }}">
                         </div>
                         {% else %}
                         <div class="swiper-slide">
-                            <img src="{{ image.image.cdn_url }}" alt="{{ image.image.alt_text }}">
+                            <img class="img-fluid" src="{{ image.image.cdn_url }}" alt="{{ image.image.alt_text }}">
                         </div>
                         {% endif %} {% endfor %}
                     </div>
@@ -49,7 +49,7 @@
                     {% for comment in productComments %}
                     <div class="row mt-3 justify-content-center">
                         <div class="col-lg-1 ">
-                            <img src="{{ comment.author.get_picture_url }}" style="height:50px; width:50px">
+                            <img class="img-fluid" src="{{ comment.author.get_picture_url }}" style="height:50px; width:50px">
                         </div>
     
                         <div class="col-lg-10 portfolio-info p-3 ">
@@ -110,7 +110,7 @@
                 {% for comment in productComments %}
                 <div class="row mt-3 justify-content-center">
                     <div class="col-lg-1 ">
-                        <img src="{{ comment.author.get_picture_url }}" style="height:50px; width:50px">
+                        <img class="img-fluid" src="{{ comment.author.get_picture_url }}" style="height:50px; width:50px">
                     </div>
 
                     <div class="col-lg-10 portfolio-info p-3 ">

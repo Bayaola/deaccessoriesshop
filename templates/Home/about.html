@@ -7,7 +7,7 @@
 
         <div class="row">
             <div class="col-lg-6">
-                <img src="{% static 'assets/img/about_us.jpg' %}" class="w-100" alt="" srcset="">
+                <img src="{% static 'assets/img/about_us.jpg' %}" class="w-100 img-fluid" alt="" srcset="">
             </div>
             <div class="col-lg-6">
                 <div class="section-title">
@@ -38,7 +38,7 @@
                                     {{ team.description }}
                                 <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                             </p>
-                            <img src="{{ team.image.cdn_url }}" class="testimonial-img" alt="{{ team.name }}">
+                            <img src="{{ team.image.cdn_url }}" class="testimonial-img img-fluid" alt="{{ team.name }}">
                             <h3>{{ team.name }}</h3>
                             <h4>{{ team.grade }}</h4>
                         </div>
