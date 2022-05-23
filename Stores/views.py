@@ -1,9 +1,11 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render,  redirect
 from django.http import HttpResponseRedirect
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from .models import Category, Product, CommentProduct
 from .forms import UserCommentProductForm
 
+from django.http import HttpResponse
+from django.contrib import messages
 # Create your views here.
 
 
@@ -28,8 +30,11 @@ def product_detail(request, slug):
             product = Product.objects.get(slug=slug)
             desc = form.cleaned_data['desc']
             author = request.user
+            
             CommentProduct(product=product, author=author, desc=desc).save()
-            return HttpResponseRedirect('/product/'+slug+'/')
+            messages.success(request, "Message sent." )
+            return redirect('/product/product/'+str(slug)+'/')
+                
     else:
         form = UserCommentProductForm()
         product = get_object_or_404(Product, slug=slug, is_active=True)

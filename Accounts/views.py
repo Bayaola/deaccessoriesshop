@@ -15,6 +15,8 @@ from .models import Account, Membership, Subscription
 from .forms import RegistrationForm
 from Stores.models import *
 
+from django.contrib.messages.views import SuccessMessageMixin
+
 
 def global_params(request):
     if request.user.is_anonymous:
@@ -30,6 +32,7 @@ def global_params(request):
         "subscription_info": subscription_info,
     }
     return context
+
 
 
 @login_required
@@ -50,9 +53,10 @@ def add_to_wishlist(request, id):
     return HttpResponseRedirect(request.META["HTTP_REFERER"])
 
     
-class RegistrationView(CreateView):
+class RegistrationView(SuccessMessageMixin, CreateView):
     template_name = 'register.html'
     form_class = RegistrationForm
+    success_message = "user was created successfully added"
 
     def get_context_data(self, *args, **kwargs):
         context = super(RegistrationView, self).get_context_data(*args, **kwargs)

@@ -5,6 +5,8 @@ from .models import Service, MessageService
 from .forms import MessageForm
 from django.urls import reverse_lazy
 
+from django.contrib.messages.views import SuccessMessageMixin
+
 # Create your views here.
 
 class ServicesList(generic.ListView):
@@ -23,7 +25,7 @@ class ServiceDetail(generic.DetailView):
 
  
 
-class SendMessage(generic.CreateView):
+class SendMessage(SuccessMessageMixin, generic.CreateView):
     model = MessageService
     fields = ['name', 'email', 'subject', 'message']
     success_message = 'message was successfully created'

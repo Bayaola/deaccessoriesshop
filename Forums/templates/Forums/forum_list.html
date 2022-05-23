@@ -3,6 +3,18 @@
 <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
 <div class="container portfolio-details" id="portfolio-details" style="margin-top:90px;">
 
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Forums</li>
+        </ol>
+      </nav>
+    {% if messages %}
+        <div class="alert alert-warning" alert-{{ message.tags }} role="alert">
+            {% for message in messages %} {{message|safe}} {% endfor %}
+        </div>
+    {% endif %}
+
     <div class="section-title pb-3">
         <h2>Forum</h2>
     </div>
@@ -29,8 +41,12 @@
 
                         <div>
                             {% if request.user == forum.user %}
-                            <a href="{% url 'forum-edit' forum.id %}">Update</a>
-                            <a href="{% url 'forum-delete' forum.id %}">Delete</a> {% endif %}
+                                <a href="{% url 'forum-edit' forum.id %}">Update</a>
+                                <form method="post" action="{% url 'forum-delete' forum.id %}">
+                                    {% csrf_token %}
+                                    <button class="btn btn-danger" type="submit">Delete</button>
+                                </form>
+                            {% endif %}
                         </div>
                         <!-- <div class="text-sm text-muted op-5"> <a class="text-black mr-2" href="#">#C++</a> <a class="text-black mr-2" href="#">#AppStrap Theme</a> <a class="text-black mr-2" href="#">#Wordpress</a> </div> -->
                     </div>

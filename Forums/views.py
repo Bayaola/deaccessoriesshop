@@ -12,6 +12,7 @@ from django.urls import reverse
 from .forms import CommentForm
 from .models import Forum, Comment
 
+from django.contrib import messages
 
 # Create your views here.
 
@@ -45,26 +46,33 @@ class OwnerProtectMixin(object):
 
 
 @method_decorator(login_required, name='dispatch')
-class ForumUpdateView(OwnerProtectMixin, UpdateView):
+class ForumUpdateView(SuccessMessageMixin, OwnerProtectMixin, UpdateView):
 	model = Forum
 	fields = ['title','desc']
 	template_name = 'Forums/forum_update_form.html'
+	success_message = 'Forum was successfully updated'
+
 
 	def get_success_url(self, **kwargs):
+        
 		return reverse_lazy('forum-detail', kwargs={'slug' : self.object.slug})
 
 
 @method_decorator(login_required, name='dispatch')
 class ForumDeleteView(SuccessMessageMixin, OwnerProtectMixin, DeleteView):
-	model = Forum
-	success_url = '/forums'
-	success_message = 'Forum was successfully deleted'
+    model = Forum
+    success_message = 'Forum was successfully deleted'
+
+    def get_success_url(self):
+	    return reverse_lazy('forum-list')
+	    	
 
 
 @method_decorator(login_required, name='dispatch')
 class ForumCreate(SuccessMessageMixin, CreateView):
 	model = Forum
 	fields = ['title','desc']
+	success_message = 'Forum was successfully created'
 
 	def form_valid(self, form):
 		form.instance.user = self.request.user
@@ -72,10 +80,10 @@ class ForumCreate(SuccessMessageMixin, CreateView):
 
 
 @method_decorator(login_required, name='dispatch')
-class CommentCreateView(CreateView):
+class CommentCreateView(SuccessMessageMixin, CreateView):
     model = Comment
     fields = ['desc']
-    success_message = 'Forum was successfully created'
+    success_message = 'comment was successfully created'
     # success_url = reverse_lazy('forum-detail')
 
     def form_valid(self, form):
@@ -89,10 +97,11 @@ class CommentCreateView(CreateView):
 
 
 @method_decorator(login_required, name='dispatch')
-class CommentUpdateView(OwnerProtectMixin, UpdateView):
+class CommentUpdateView(SuccessMessageMixin, OwnerProtectMixin, UpdateView):
     model = Comment
     fields = ['desc']
     template_name = 'Forums/forum_update_comment.html'
+    success_message = 'comment was successfully updated'
 
     def get_success_url(self):
         self.forum = self.object.forum
@@ -100,8 +109,9 @@ class CommentUpdateView(OwnerProtectMixin, UpdateView):
 
 
 @method_decorator(login_required, name='dispatch')
-class CommentDeleteView(OwnerProtectMixin, DeleteView):
+class CommentDeleteView(SuccessMessageMixin, OwnerProtectMixin, DeleteView):
     model = Comment
+    success_message = 'comment was successfully deleted'
 
     def get_success_url(self):
         self.forum = self.object.forum

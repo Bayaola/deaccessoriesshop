@@ -6,6 +6,11 @@
 
 <div class="container justify-content-center align-items-center" style="margin-top:90px;">
     <br>
+    {% if messages %}
+        <div class="alert alert-warning" alert-{{ message.tags }} role="alert">
+            {% for message in messages %} {{message|safe}} {% endfor %}
+        </div>
+    {% endif %}
     <h1>Choose a plan according to your needs</h1>
     <hr>
     <div class="row">

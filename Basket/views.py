@@ -4,14 +4,14 @@ from django.shortcuts import get_object_or_404, render
 from Stores.models import Product
 
 from .basket import Basket
-
+from django.contrib import messages
 
 def basket_summary(request):
     # print(request.session['basket'], request.user)
     basket = Basket(request)
-    print('yes')
+    # print('yes')
     wish_produits = Product.objects.filter(users_wishlist=request.user)
-    print(wish_produits)
+    # print(wish_produits)
     context = {
         'basket': basket,
         'wish_produits': wish_produits
@@ -20,7 +20,7 @@ def basket_summary(request):
 
 
 def basket_add(request):
-    print("yes")
+    # print("yes")
     basket = Basket(request)
     if request.POST.get('action') == 'post':
         product_id = int(request.POST.get('productid'))
@@ -33,6 +33,7 @@ def basket_add(request):
 
         basketqty = basket.__len__()
         response = JsonResponse({'qty': basketqty})
+        messages.success(request, "product was added")
         return response
 
 
@@ -45,7 +46,8 @@ def basket_delete(request):
         basketqty = basket.__len__()
         baskettotal = basket.get_total_price()
         response = JsonResponse({'qty': basketqty, 'subtotal': baskettotal})
-        print(response)
+        # print(response)
+        messages.success(request, "product was deleted")
         return response
 
 
@@ -59,5 +61,6 @@ def basket_update(request):
         basketqty = basket.__len__()
         basketsubtotal = basket.get_subtotal_price()
         response = JsonResponse({'qty': basketqty, 'subtotal': basketsubtotal})
+        messages.success(request, "product was updated")
         return response
 

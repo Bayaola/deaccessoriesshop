@@ -18,6 +18,18 @@
 
 <div class="container portfolio-details" id="portfolio-details" style="margin-top:80px;">
 
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Blogs</li>
+        </ol>
+      </nav>
+
+    {% if messages %}
+        <div class="alert alert-warning" alert-{{ message.tags }} role="alert">
+            {% for message in messages %} {{message|safe}} {% endfor %}
+        </div>
+    {% endif %}
     <div class="section-title pb-1">
         <h2>Blog</h2>
     </div>

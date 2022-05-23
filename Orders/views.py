@@ -9,6 +9,8 @@ from .forms import PayementForm
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import HttpResponse
 
+from django.contrib import messages
+
 
 def checkout(request):
     basket = Basket(request)
@@ -20,6 +22,7 @@ def checkout(request):
             'form': form,
             'prixTotal': basket.get_total_price()
         }
+        # messages.success(request, '')
         return render(request, 'payement_methode.html', context)
 
 def add(request):
@@ -53,6 +56,7 @@ def add(request):
                 OrderItem.objects.create(order=id_order, product=item['product'], price=item['price'], quantity=item['qty'])
 
         response = JsonResponse({'success': 'Return something'})
+        messages.success(request, 'product was added')
         # return response
         return redirect('Stores:store_home')
 

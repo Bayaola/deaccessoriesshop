@@ -3,12 +3,20 @@
 
 <section id="portfolio-details" class="portfolio-details" style="margin-top:100px;">
     <div class="container">
-        {% if messages %}
-        <div class="alert alert-warning" alert-{{ message.tags }} role="alert">
-            {% for message in messages %} {{message|safe}} - <a href="{% url 'Accounts:wishlist' %}" class="alert-link">Your Wishlist</a>. {% endfor %}
-        </div>
-        {% endif %}
         <div class="row gy-4">
+
+            {% if messages %}
+            <div class="alert alert-warning" alert-{{ message.tags }} role="alert">
+                {% for message in messages %} {{message|safe}} - <a href="{% url 'Accounts:wishlist' %}" class="alert-link">Your Wishlist</a>. {% endfor %}
+            </div>
+            {% endif %}
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="/product">Stores</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ product.title }}</li>
+                </ol>
+            </nav>
 
             <div class="col-lg-8">
                 <div class="portfolio-details-slider swiper">
@@ -26,30 +34,42 @@
                     <div class="swiper-pagination"></div>
                 </div>
 
-                <div class="">
+                
+
+                <div class="col-lg-8" id="mob_screen_2">
+                    <div class="portfolio-description" id="">
+                        <h2 class="text-center">Description of {{ product.title }}</h2>
+                        <p class="text-justify"> {{ product.description }} </p>
+                    </div>
+                </div>
+                
+
+                <div class="col-lg-8" id="desk_screen_2">
                     <h3 class="m-2 text-xl-center">Comments</h3>
                     {% for comment in productComments %}
                     <div class="row mt-3 justify-content-center">
                         <div class="col-lg-1 ">
                             <img src="{{ comment.author.get_picture_url }}" style="height:50px; width:50px">
                         </div>
-
+    
                         <div class="col-lg-10 portfolio-info p-3 ">
                             <p class=""> {{ comment.desc }} by {{ comment.author }} at {{ comment.created_at }}</p>
                         </div>
                     </div>
                     {% endfor %}
-                </div>
-
-                <div class="row mt-3 justify-content-center">
-                    <form action="{% url 'Stores:product_detail' product.slug %}" method="post" class="row">
-                        {% csrf_token %}
-                        <div class="form-group mt-3 col-lg-10">
-                            {{ form.desc}}
-                        </div>
-                        <div class="text-center col-lg-2 pt-lg-4"><input type="submit" value="Submit"></div>
-
-                    </form>
+                
+            
+    
+                    <div class="row mt-0 justify-content-center">
+                        <form action="{% url 'Stores:product_detail' product.slug %}" method="post" class="row">
+                            {% csrf_token %}
+                            <div class="form-group mt-3 col-lg-10">
+                                {{ form.desc}}
+                            </div>
+                            <div class="text-center col-lg-2 pt-lg-4"><input type="submit" value="Submit"></div>
+    
+                        </form>
+                    </div>
                 </div>
 
             </div>
@@ -73,20 +93,74 @@
                         <li class="text-center"><a href="{% url 'Accounts:user_wishlist' product.id %}" style="width: 100%;" class="btn btn-light fw500" role="button" aria-disabled="true ">Add to Wish List</a></li>
                     </ul>
                 </div>
-                <div class="portfolio-description">
+
+                <div class="portfolio-description" id="desk_screen">
                     <h2 class="text-center">Description of {{ product.title }}</h2>
                     <p class="text-justify"> {{ product.description }} </p>
                 </div>
+
             </div>
 
 
+        </div>
+
+        <div  class="row gy-4" id="mob_screen">
+            <div class="col-lg-8">
+                <h3 class="m-2 text-xl-center">Comments</h3>
+                {% for comment in productComments %}
+                <div class="row mt-3 justify-content-center">
+                    <div class="col-lg-1 ">
+                        <img src="{{ comment.author.get_picture_url }}" style="height:50px; width:50px">
+                    </div>
+
+                    <div class="col-lg-10 portfolio-info p-3 ">
+                        <p class=""> {{ comment.desc }} by {{ comment.author }} at {{ comment.created_at }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            
+        
+
+                <div class="row mt-0 justify-content-center">
+                    <form action="{% url 'Stores:product_detail' product.slug %}" method="post" class="row">
+                        {% csrf_token %}
+                        <div class="form-group mt-3 col-lg-10">
+                            {{ form.desc}}
+                        </div>
+                        <div class="text-center col-lg-2 pt-lg-4"><input type="submit" value="Submit"></div>
+
+                    </form>
+                </div>
+            </div>
         </div>
 
     </div>
 </section>
 
 
-{% endblock %} {% block javascript %}
+{% endblock %} 
+
+{% block javascript %}
+
+<script>
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+        // true for mobile device
+        // document.write("mobile device");
+        $("#mob_screen").attr("hidden", false);
+        $("#desk_screen").attr("hidden", true);
+
+        $("#mob_screen_2").attr("hidden", false);
+        $("#desk_screen_2").attr("hidden", true);
+      }else{
+        // false for not mobile device
+        //document.write("not mobile device");
+        $("#desk_screen").attr("hidden", false);
+        $("#mob_screen").attr("hidden", true);
+
+        $("#desk_screen_2").attr("hidden", false);
+        $("#mob_screen_2").attr("hidden", true);
+      }
+</script>
 
 <script>
     $(document).on('click', '#add-button', function(e) {

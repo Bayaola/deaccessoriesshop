@@ -1,6 +1,18 @@
 {% extends 'layout/base.html' %} {% load crispy_forms_tags %} {% load static %} {% block content %} {% include "layout/_nav.html" %}
 
 <div class="container portfolio-details" id="portfolio-details" style="margin-top:90px;">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item"><a href="/forums">Forums</a></li>
+          <li class="breadcrumb-item active" aria-current="page">{{ object.title }}</li>
+        </ol>
+    </nav>
+    {% if messages %}
+        <div class="alert alert-warning" alert-{{ message.tags }} role="alert">
+            {% for message in messages %} {{message|safe}} {% endfor %}
+        </div>
+    {% endif %}
     <div class="row">
         <div class="col">
             <div class="card row-hover pos-relative py-3 px-3 mb-3 border-warning border-top-0 border-right-0 border-bottom-0 rounded-0">
