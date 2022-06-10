@@ -1,3 +1,4 @@
+from multiprocessing import context
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
 
@@ -12,9 +13,17 @@ def basket_summary(request):
     # print('yes')
     wish_produits = Product.objects.filter(users_wishlist=request.user)
     # print(wish_produits)
+    from .models import WhatsappNumber
+    
+    phone = WhatsappNumber.objects.all()[0]
+    phone = "+237"+str(phone.number)
+    uri_web = 'https://web.whatsapp.com/send?phone='+phone+'&text='
+    uri = 'whatsapp://send?phone='+phone
     context = {
         'basket': basket,
-        'wish_produits': wish_produits
+        'wish_produits': wish_produits,
+        'uri': uri,
+        'uri_web': uri_web
     }
     return render(request, 'summary.html', context)
 
@@ -73,7 +82,7 @@ def WhatsappData(message):
     
     phone = WhatsappNumber.objects.all()[0]
     
-    phone = "+237"+phone
+    phone = "+237"+str(phone.number)
     web.open('https://web.whatsapp.com/send?phone='+phone+'&text='+message)
     time.sleep(30)
     pg.press('enter')
@@ -81,12 +90,18 @@ def WhatsappData(message):
 
 def sendData(request):
     if request.method == 'POST':
-        # phone = request.POST['phone']
         message = request.POST['message']
-        
-        WhatsappData(message)
         messages.success(request, "Message has successfuly sent ...")
         
         return redirect('Basket:basket_summary')
     else:
-        return render(request, "sendData.html")
+        from .models import WhatsappNumber
+    
+        phone = WhatsappNumber.objects.all()[0]
+        phone = "+237"+str(phone.number)
+        uri = 'https://web.whatsapp.com/send?phone='+phone+'&text='
+        context = {
+            'uri': uri
+        }
+        
+        return render(request, "sendData.html", context)

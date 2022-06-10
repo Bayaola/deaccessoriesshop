@@ -18,24 +18,31 @@
                 </div>
             {% endif %}
             <h2 class="text-center">Send message</h2>
-            <form class="form-group" method="post">
-                {% csrf_token %}
-                {% comment %} <div class="col-lg-12 col-md-12">
-                    <label> Phone </label>
-                    <input type="number" name="phone" class="form-control">
-                </div>
-                <br> {% endcomment %}
+            
+
+            <div class="form-group">
                 <div class="col-lg-12 col-md-12">
                     <label> Message </label>
-                    <textarea class="form-control" name="message" rows="4" cols="50"></textarea>
+                    <textarea class="form-control" id="message" name="message" rows="4" cols="50"></textarea>
                 </div>
                 <br>
-                <button class="btn btn-success" type="submit" name="button">Submit</button>
-            </form>
+                {% comment %} <button class="btn btn-success" type="submit" name="button">Submit</button> {% endcomment %}
+                {% comment %} <a type="button" id="test-btn" class="btn btn-success" >Submit</a> {% endcomment %}
+
+                <button class="btn btn-success" onclick="NewTab()">Submit</button>
+            </div>
+
         </div>
     </div>
+    <script>
+        function NewTab() {
+            const val = document.querySelector('message').value;
+            window.open(
+                "{{ uri }}", "_blank");
+        }
+    </script>
 </div>
 
-
-
 {% endblock%}
+
+

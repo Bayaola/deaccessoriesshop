@@ -36,12 +36,21 @@ def product_detail(request, slug):
             return redirect('/product/product/'+str(slug)+'/')
                 
     else:
+        from Basket.models import WhatsappNumber
+    
+        phone = WhatsappNumber.objects.all()[0]
+        phone = "+237"+str(phone.number)
+        uri_web = 'https://web.whatsapp.com/send?phone='+phone+'&text='
+        uri = 'whatsapp://send?phone='+phone
+        
         form = UserCommentProductForm()
         product = get_object_or_404(Product, slug=slug, is_active=True)
         productComments = CommentProduct.objects.filter(product=product)
         context ={
             "product": product,
             "productComments": productComments,
-            "form": form
+            "form": form,
+            'uri': uri,
+            'uri_web': uri_web
         }
         return render(request, "Stores/single.html", context)
