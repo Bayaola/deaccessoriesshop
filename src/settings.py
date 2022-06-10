@@ -28,7 +28,7 @@ UPLOADCARE = {
     'secret': 'a47627ebec838ed0efca'
 }
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# SECURITY WARNING: don't run with debug turned on in production
 DEBUG = False
 
 ALLOWED_HOSTS = ['designgenius.herokuapp.com', '127.0.0.1', 'designgenius.biz', '*']
