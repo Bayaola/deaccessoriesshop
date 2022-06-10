@@ -29,9 +29,9 @@ UPLOADCARE = {
 }
 
 # SECURITY WARNING: don't run with debug turned on in production
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['designgenius.herokuapp.com', '127.0.0.1', 'designgenius.biz', '*']
+ALLOWED_HOSTS = ['127.0.0.1', 'deaccessoriesshop.com', '*']
 
 
 # Application definition
