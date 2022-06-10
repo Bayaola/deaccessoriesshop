@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 
 from Stores.models import Product
 
@@ -64,3 +64,29 @@ def basket_update(request):
         messages.success(request, "product was updated")
         return response
 
+
+def WhatsappData(message):
+    import time
+    import webbrowser as web
+    import pyautogui as pg
+    from .models import WhatsappNumber
+    
+    phone = WhatsappNumber.objects.all()[0]
+    
+    phone = "+237"+phone
+    web.open('https://web.whatsapp.com/send?phone='+phone+'&text='+message)
+    time.sleep(30)
+    pg.press('enter')
+
+
+def sendData(request):
+    if request.method == 'POST':
+        # phone = request.POST['phone']
+        message = request.POST['message']
+        
+        WhatsappData(message)
+        messages.success(request, "Message has successfuly sent ...")
+        
+        return redirect('Basket:basket_summary')
+    else:
+        return render(request, "sendData.html")
