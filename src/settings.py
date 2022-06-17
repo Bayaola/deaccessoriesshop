@@ -137,10 +137,21 @@ else:
     # }
     
     # designGenius2
+    # DATABASES = {
+    #     'default': {
+    #         'ENGINE': 'django.db.backends.postgresql',
+    #         'PASSWORD': 'ggx_0fWAxhmVDMwrlp7bURqsYb3OJXhK',
+    #         'HOST': 'hattie.db.elephantsql.com',
+    #         'NAME': 'vacqjqtp',
+    #         'USER': 'vacqjqtp',
+    #     }
+    # }
+    
+    # deaccessoriesshop.com
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'PASSWORD': 'ggx_0fWAxhmVDMwrlp7bURqsYb3OJXhK',
+            'PASSWORD': 'YVVnmbhQTQVKS1y4xwU-sZ26T_quOrsu',
             'HOST': 'hattie.db.elephantsql.com',
             'NAME': 'vacqjqtp',
             'USER': 'vacqjqtp',
