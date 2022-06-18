@@ -33,6 +33,6 @@ urlpatterns = [
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
-admin.site.site_header = "Design Genius Admin"
-admin.site.site_title = "Design Genius Admin Portal"
-admin.site.index_title = "Site d’administration Design Genius"
+admin.site.site_header = "D & E Accessories Admin"
+admin.site.site_title = "D & E Accessories Admin Portal"
+admin.site.index_title = "D & E Accessories Administration Site"
