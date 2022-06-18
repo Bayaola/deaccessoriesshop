@@ -100,10 +100,10 @@ class Product(models.Model):
         help_text=_("Maximum 999.99"),
         error_messages={
             "name": {
-                "max_length": _("The price must be between 0 and 999.99."),
+                "max_length": _("The price must be between 0 and 9999999999.99."),
             },
         },
-        max_digits=5,
+        max_digits=12,
         decimal_places=2,
     )
     is_active = models.BooleanField(
