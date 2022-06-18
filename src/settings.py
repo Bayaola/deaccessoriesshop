@@ -153,8 +153,8 @@ else:
             'ENGINE': 'django.db.backends.postgresql',
             'PASSWORD': 'YVVnmbhQTQVKS1y4xwU-sZ26T_quOrsu',
             'HOST': 'hattie.db.elephantsql.com',
-            'NAME': 'vacqjqtp',
-            'USER': 'vacqjqtp',
+            'NAME': 'svwqzgao',
+            'USER': 'svwqzgao',
         }
     }
 
