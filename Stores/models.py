@@ -97,7 +97,7 @@ class Product(models.Model):
     )
     discount_price = models.DecimalField(
         verbose_name=_("Discount price"),
-        help_text=_("Maximum 999.99"),
+        help_text=_("Maximum 9999999999.99"),
         error_messages={
             "name": {
                 "max_length": _("The price must be between 0 and 9999999999.99."),
