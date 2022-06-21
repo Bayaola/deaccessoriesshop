@@ -85,30 +85,8 @@ class Product(models.Model):
     # slug = models.SlugField(max_length=200, unique=True)
     slug = models.SlugField(null=True, blank=True)
     regular_price = models.IntegerField(default=0)
-    """regular_price = models.DecimalField(
-        verbose_name=_("Regular price"),
-        help_text=_("Maximum 9999999999.99"),
-        error_messages={
-            "name": {
-                "max_length": _("The price must be between 0 and 9999999999.99."),
-            },
-        },
-        max_digits=12,
-        decimal_places=2,
-    )"""
     discount_price = models.IntegerField(default=0)
-    """discount_price = models.DecimalField(
-        verbose_name=_("Discount price"),
-        help_text=_("Maximum 9999999999.99"),
-        error_messages={
-            "name": {
-                "max_length": _("The price must be between 0 and 9999999999.99."),
-            },
-        },
-        max_digits=12,
-        
-        decimal_places=2,
-    )"""
+
     is_active = models.BooleanField(
         verbose_name=_("Product visibility"),
         help_text=_("Change product visibility"),

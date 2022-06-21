@@ -29,7 +29,7 @@ UPLOADCARE = {
 }
 
 # SECURITY WARNING: don't run with debug turned on in production
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'deaccessoriesshop.com', '*']
 
@@ -125,28 +125,6 @@ if DEBUG:
     }
     
 else:
-    # designGenius
-    # DATABASES = {
-    #     'default': {
-    #         'ENGINE': 'django.db.backends.postgresql',
-    #         'PASSWORD': 'rMcEBoai0vTEKTuSlVW7HnwOQemeok4-',
-    #         'HOST': 'hattie.db.elephantsql.com',
-    #         'NAME': 'devsdcak',
-    #         'USER': 'devsdcak',
-    #     }
-    # }
-    
-    # designGenius2
-    # DATABASES = {
-    #     'default': {
-    #         'ENGINE': 'django.db.backends.postgresql',
-    #         'PASSWORD': 'ggx_0fWAxhmVDMwrlp7bURqsYb3OJXhK',
-    #         'HOST': 'hattie.db.elephantsql.com',
-    #         'NAME': 'vacqjqtp',
-    #         'USER': 'vacqjqtp',
-    #     }
-    # }
-    
     # deaccessoriesshop.com
     DATABASES = {
         'default': {
