@@ -25,6 +25,9 @@ class ProductImageInline(admin.TabularInline):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
+    prepopulated_fields= {
+        "slug": ("title", )
+    }
     inlines = [
         ProductImageInline,
     ]
