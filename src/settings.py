@@ -161,15 +161,6 @@ else:
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
-DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'PASSWORD': 'YVVnmbhQTQVKS1y4xwU-sZ26T_quOrsu',
-            'HOST': 'jelani.db.elephantsql.com',
-            'NAME': 'svwqzgao',
-            'USER': 'svwqzgao',
-        }
-    }
 
 AUTH_PASSWORD_VALIDATORS = [
     {
